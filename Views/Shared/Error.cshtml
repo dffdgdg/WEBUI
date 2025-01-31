@@ -1,0 +1,32 @@
+﻿@* Error.cshtml *@
+@{
+    ViewData["Title"] = "Ошибка";
+}
+<div class="error-container text-center">
+    <h1 class="display-1">Ошибка</h1>
+    <p class="lead">Что-то пошло не так. Пожалуйста, попробуйте снова позже.</p>
+    <p>Код ошибки: @ViewData["ErrorCode"]</p>
+    <a class="btn btn-danger" href="/">Вернуться на главную</a>
+</div>
+
+<style>
+    .error-container {
+        padding: 50px 20px;
+        margin-top: 100px; /* Отступ сверху для центрирования */
+        color: #fff; /* Цвет текста на темном фоне */
+        border-radius: 5px; /* Скругление углов */
+    }
+
+        .error-container h1 {
+            font-size: 6rem; /* Размер заголовка */
+        }
+
+        .error-container p {
+            font-size: 1.5rem; /* Размер текста */
+        }
+
+        .error-container a {
+            margin-top: 20px; /* Отступ сверху для кнопки */
+            font-size: 1.2rem; /* Размер кнопки */
+        }
+</style>

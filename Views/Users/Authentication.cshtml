@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 75vh;">
+    <h2 class="mb-5 text-light">Авторизация</h2>
+    <div class="container p-4 rounded bg-input shadow-sm" style="width: 400px; background-color: #232324; border: none;">
+        <form asp-action="Login" method="post">
+            <div class="form-group mb-3">
+                <label for="Email" class="text-light">Электронная почта</label>
+                <input type="email" class="form-control bg-input text-light" id="Email" name="email" required placeholder="Введите вашу электронную почту" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="Password" class="text-light">Пароль</label>
+                <input type="password" class="form-control bg-input text-light" id="Password" name="password" required placeholder="Введите ваш пароль" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Войти</button>
+            <p class="text-center mb-0 text-light">
+                Нет аккаунта? <a href="/Register" class="btn btn-link p-0">Зарегистрироваться</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Цвета для полей ввода */
+    .bg-input {
+        background-color: #2C2C2D; /* Цвет полей ввода */
+        color: #fff; /* Цвет текста в полях ввода */
+    }
+
+    .form-control {
+        border-radius: 0.25rem; /* Скругление углов полей ввода */
+        border: 1px solid #2C2C2D; /* Цвет рамки полей ввода */
+    }
+
+        .form-control:focus {
+            background-color: #1E1D1E; /* Цвет фона при фокусе */
+            border-color: #418AF4; /* Цвет рамки при фокусе */
+            box-shadow: 0 0 0 0.2rem rgba(48, 48, 49, 0.25); /* Тень при фокусе */
+        }
+
+    .btn-primary {
+        background-color: #007bff; /* Цвет кнопки */
+        border-color: #007bff; /* Цвет рамки кнопки */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Цвет кнопки при наведении */
+            border-color: #0056b3; /* Цвет рамки кнопки при наведении */
+        }
+
+    .btn-link {
+        color: #007bff; /* Цвет ссылки */
+    }
+
+        .btn-link:hover {
+            text-decoration: underline; /* Подчёркивание при наведении */
+        }
+</style>

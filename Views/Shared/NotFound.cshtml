@@ -1,0 +1,30 @@
+﻿@* NotFound.cshtml *@
+@{
+    ViewData["Title"] = "Страница не найдена";
+}
+<div class="not-found-container text-center">
+    <h1 class="display-1">404</h1>
+    <p class="lead">Извините, страница, которую вы ищете, не найдена.</p>
+    <a class="btn btn-primary" href="/">Вернуться на главную</a>
+</div>
+
+<style>
+    .not-found-container {
+        padding: 50px 20px;
+        margin-top: 100px; /* Отступ сверху для центрации */
+        color: #fff; /* Цвет текста на темном фоне */
+    }
+
+        .not-found-container h1 {
+            font-size: 6rem; /* Размер заголовка */
+        }
+
+        .not-found-container p {
+            font-size: 1.5rem; /* Размер текста */
+        }
+
+        .not-found-container a {
+            margin-top: 20px; /* Отступ сверху для кнопки */
+            font-size: 1.2rem; /* Размер кнопки */
+        }
+</style>

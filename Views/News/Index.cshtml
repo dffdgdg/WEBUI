@@ -1,0 +1,89 @@
+﻿@using WebUI.Migrations;
+@model IEnumerable<WebUI.Migrations.News>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="news-container" id="newsContainer">
+    @foreach (var item in Model.Take(5)
+    /* Отображаем только 6 новостей по умолчанию (можно изменить) */
+    )
+    {
+        <article class="news-item">
+            <h2 class="news-title">@item.Title</h2>
+            <p class="news-message">@item.Content</p>
+            @if (item.CoverImage != null)
+            {
+                <img src="@Url.Action("GetImage", "News", new { id = item.Id })" alt="Обложка новости" class="news-cover-image" />
+            }
+            <div class="news-footer">
+                <span class="news-author">Автор: @item.AuthorId</span>
+                <span class="news-date">@item.CreatedAt.ToString("dd.MM.yyyy")</span>
+                <span class="news-views">Просмотров: @item.ViewsCount</span>
+            </div>
+        </article>
+    }
+    <div id="loading" style="display:none;">Загрузка...</div>
+</div>
+
+<script>
+    let currentPage = 2; // Начинаем с первой страницы
+    const pageSize = 5; // Количество новостей на странице
+    const loadingElement = document.getElementById('loading');
+    let isLoading = false; // Флаг для предотвращения множественных загрузок
+
+    window.onscroll = () => {
+        if (document.body.scrollHeight - window.innerHeight <= window.scrollY && !isLoading) {
+            console.log("Загружаем больше новостей...");
+            loadMoreNews(currentPage);
+        }
+    };
+
+    async function loadMoreNews(page) {
+        isLoading = true;
+        loadingElement.style.display = 'block';
+        console.log(`Запрос на загрузку новостей, страница: ${page}`);
+
+        const response = await fetch(`/api/news?skip=${(page - 1) * pageSize}&take=${pageSize}`);
+
+        if (response.ok) {
+            const news = await response.json();
+            const newsContainer = document.getElementById('newsContainer');
+
+            if (news.length === 0) {
+                console.log("Нет больше новостей для загрузки.");
+                window.onscroll = null; // Отключаем дальнейшую загрузку
+                loadingElement.style.display = 'none';
+                return; // Прекращаем выполнение функции
+            }
+
+            news.forEach(item => {
+                const article = document.createElement('article');
+                article.className = 'news-item';
+                article.innerHTML = `
+                        <h2 class="news-title">${item.title}</h2>
+                        <p class="news-message">${item.content}</p>
+                        ${item.imageUrl ? `<img src="${item.imageUrl}" alt="Обложка новости" class="news-cover-image" />` : ''}
+                        <div class="news-footer">
+                            <span class="news-author">Автор: ${item.authorId}</span>
+                            <span class="news-date">${new Date(item.createdAt).toLocaleDateString()}</span>
+                            <span class="news-views">Просмотров: ${item.viewsCount}</span>
+                        </div>
+                    `;
+                newsContainer.appendChild(article); // Добавляем новость в контейнер
+            });
+
+            currentPage++; // Увеличиваем номер страницы
+        } else {
+            console.error('Ошибка при загрузке новостей:', response.statusText);
+        }
+
+        loadingElement.style.display = 'none'; // Скрываем индикатор загрузки
+        isLoading = false; // Сбрасываем флаг загрузки
+    }
+
+    // Загрузим первую страницу сразу при загрузке
+    (async function loadInitialNews() {
+        await loadMoreNews(currentPage);
+    })();
+</script>

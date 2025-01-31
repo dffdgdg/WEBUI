@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 75vh;">
+    <h2 class="mb-5">Регистрация</h2>
+    <div class="container p-4 border rounded bg-light shadow-sm" style="width: 400px;">
+        <form asp-action="Register" method="post">
+            <div class="form-group mb-3">
+                <label for="Email">Электронная почта</label>
+                <input type="email" class="form-control" id="Email" name="email" required placeholder="Введите вашу электронную почту" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="Password">Пароль</label>
+                <input type="password" class="form-control" id="Password" name="password" required placeholder="Введите ваш пароль" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="Surname">Фамилия</label>
+                <input type="text" class="form-control" id="Surname" name="surname" required placeholder="Введите вашу фамилию" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="Name">Имя</label>
+                <input type="text" class="form-control" id="Name" name="name" required placeholder="Введите ваше имя" />
+            </div>
+            <div class="form-group mb-4">
+                <label for="Midname">Отчество</label>
+                <input type="text" class="form-control" id="Midname" name="midname" placeholder="Введите ваше отчество" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Зарегистрироваться</button>
+            <p class="text-center mb-0">
+                Уже зарегистрированы? <a href="/Login" class="btn btn-link p-0">Войти</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Добавьте стили для улучшения видимости текста */
+    .btn-link {
+        color: #007bff; /* Цвет ссылки */
+        text-decoration: underline; /* Подчёркнутая ссылка */
+    }
+
+        .btn-link:hover {
+            text-decoration: none; /* Убираем подчёркивание при наведении */
+        }
+</style>

@@ -1,0 +1,85 @@
+﻿@model WebUI.Migrations.User
+
+@{
+    ViewData["Title"] = "Профиль пользователя";
+}
+
+<h2><strong>@Model.Name @Model.Surname</strong></h2>
+
+<div>
+    <h4>Информация о пользователе</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Email</dt>
+        <dd>@Model.Email</dd>
+        <dt>Дата регистрации</dt>
+        <dd>@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
+    </dl>
+</div>
+
+<!-- Вкладки -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="news-tab" data-bs-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="true">Новости</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="comments-tab" data-bs-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">Комментарии</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <!-- Вкладка "Новости" -->
+    <div class="tab-pane fade show active" id="news" role="tabpanel" aria-labelledby="news-tab">
+        <div>
+            <h4>Новости пользователя</h4>
+            <hr />
+            @if (Model.News.Count == 0)
+            {
+                <p>У этого пользователя нет новостей.</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var news in Model.News)
+                    {
+                        <li>
+                            <h5>@news.Title</h5>
+                            <p>@news.Content</p>
+                            <small>Создано: @news.CreatedAt.ToString("dd.MM.yyyy HH:mm")</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+    <!-- Вкладка "Комментарии" -->
+    <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+        <div>
+            <h4>Комментарии пользователя</h4>
+            <hr />
+            @if (Model.Comments.Count == 0)
+            {
+                <p>У этого пользователя нет комментариев.</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li>
+                            <p>Комментарий: @comment.Message</p>
+                            <small>
+                                К новости: <a asp-controller="News" asp-action="Details" asp-route-id="@comment.NewsId">@comment.News.Title</a>
+                            </small>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Назад к списку пользователей</a>
+</p>
